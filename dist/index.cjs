@@ -16,8 +16,8 @@ var OpenAI__default = /*#__PURE__*/_interopDefault(OpenAI);
 var fs__default = /*#__PURE__*/_interopDefault(fs);
 var path__default = /*#__PURE__*/_interopDefault(path);
 
-// node_modules/tsup/assets/cjs_shims.js
-var getImportMetaUrl = () => typeof document === "undefined" ? new URL(`file:${__filename}`).href : document.currentScript && document.currentScript.src || new URL("main.js", document.baseURI).href;
+// node_modules/.pnpm/tsup@8.0.2_ts-node@10.9.2_@types+node@20.12.12_typescript@5.4.5__typescript@5.4.5/node_modules/tsup/assets/cjs_shims.js
+var getImportMetaUrl = () => typeof document === "undefined" ? new URL("file:" + __filename).href : document.currentScript && document.currentScript.src || new URL("main.js", document.baseURI).href;
 var importMetaUrl = /* @__PURE__ */ getImportMetaUrl();
 
 // src/utils/is.ts
@@ -40,7 +40,8 @@ function isObject(e) {
   return typeof e === "object" && isNotNullish(e);
 }
 function isEmpty(e) {
-  if ((e == null ? void 0 : e.size) ?? 0 > 0) return false;
+  if ((e == null ? void 0 : e.size) ?? 0 > 0)
+    return false;
   return isNaN(e) || isNullish(e) || isString(e) && (e.length < 1 || !/\S/.test(e)) || isArray(e) && e.length < 1 || isObject(e) && Object.keys(e).length < 1;
 }
 function isNotEmpty(e) {
@@ -49,7 +50,8 @@ function isNotEmpty(e) {
 
 // src/utils/parse.ts
 function cleanJsonAndDecode(input) {
-  if (input == void 0) return void 0;
+  if (input == void 0)
+    return void 0;
   const pattern = /(\{[\s\S]*?"\s*:\s*[\s\S]*?})/;
   const match = input.match(pattern);
   if (!match) {
@@ -66,7 +68,8 @@ function jsonEncode(obj, options) {
   }
 }
 function jsonDecode(json) {
-  if (json == void 0) return void 0;
+  if (json == void 0)
+    return void 0;
   try {
     return JSON.parse(json);
   } catch (error) {

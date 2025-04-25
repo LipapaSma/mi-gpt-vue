@@ -28,7 +28,8 @@ function isObject(e) {
   return typeof e === "object" && isNotNullish(e);
 }
 function isEmpty(e) {
-  if ((e == null ? void 0 : e.size) ?? 0 > 0) return false;
+  if ((e == null ? void 0 : e.size) ?? 0 > 0)
+    return false;
   return isNaN(e) || isNullish(e) || isString(e) && (e.length < 1 || !/\S/.test(e)) || isArray(e) && e.length < 1 || isObject(e) && Object.keys(e).length < 1;
 }
 function isNotEmpty(e) {
@@ -37,7 +38,8 @@ function isNotEmpty(e) {
 
 // src/utils/parse.ts
 function cleanJsonAndDecode(input) {
-  if (input == void 0) return void 0;
+  if (input == void 0)
+    return void 0;
   const pattern = /(\{[\s\S]*?"\s*:\s*[\s\S]*?})/;
   const match = input.match(pattern);
   if (!match) {
@@ -54,7 +56,8 @@ function jsonEncode(obj, options) {
   }
 }
 function jsonDecode(json) {
-  if (json == void 0) return void 0;
+  if (json == void 0)
+    return void 0;
   try {
     return JSON.parse(json);
   } catch (error) {

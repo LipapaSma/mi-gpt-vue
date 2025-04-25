@@ -25,7 +25,12 @@
   "scripts": {
     "install-deps": "npm install && cd frontend && npm install",
     "build": "npx -y prisma generate && rm -rf dist && tsup",
-    "start": "node app.js"
+    "start": "node app.js",
+    "start-electron": "electron ./electron/main.js",
+    "build-electron": "electron-builder",
+    "pack-mac": "electron-builder --mac",
+    "pack-win": "electron-builder --win",
+    "pack-linux": "electron-builder --linux"
   },
   "dependencies": {
     "@prisma/client": "^5.14.0",
@@ -41,6 +46,8 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.4.9",
+    "electron": "^35.2.1",
+    "electron-builder": "^26.0.12",
     "tsup": "^8.0.1",
     "tsx": "^4.11.0",
     "typescript": "^5.3.3"
@@ -61,5 +68,43 @@
     "import": "./dist/index.js",
     "require": "./dist/index.cjs",
     "default": "./dist/index.js"
+  },
+  "build": {
+    "appId": "com.migpt.desktop",
+    "productName": "MI-GPT Desktop",
+    "files": [
+      "app.js",
+      "dist/**/*",
+      "prisma/**/*",
+      "node_modules/**/*",
+      "frontend/dist/**/*",
+      "electron/**/*"
+    ],
+    "directories": {
+      "output": "releases"
+    },
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "frontend/dist/favicon.ico"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "frontend/dist/favicon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility",
+      "icon": "frontend/dist/favicon.ico"
+    }
   }
 }

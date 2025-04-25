@@ -1,0 +1,24 @@
+FROM node:18.20.4-alpine
+
+WORKDIR /app
+
+# 环境变量设置
+ENV PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1
+
+# 仅复制已构建好的文件和运行时需要的文件
+COPY app.js ./
+COPY migpt.js ./
+COPY package.json ./
+COPY frontend/dist ./frontend/dist
+COPY dist ./dist
+COPY prisma ./prisma
+COPY .env ./
+
+# 安装仅生产环境依赖，跳过所有构建和可选依赖
+RUN npm install --production --no-optional
+
+# 暴露端口
+EXPOSE 3000
+
+# 启动命令 - 直接使用Node.js运行app.js
+CMD ["node", "app.js"] 

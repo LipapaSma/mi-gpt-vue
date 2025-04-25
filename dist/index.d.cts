@@ -128,7 +128,7 @@ declare class BaseSpeaker {
     logger: {
         tag: string;
         disable: boolean;
-        create(config?: LoggerConfig): /*elided*/ any;
+        create(config?: LoggerConfig | undefined): any;
         log(...args: any[]): void;
         debug(...args: any[]): void;
         success(...args: any[]): void;
@@ -385,20 +385,20 @@ declare class MemoryManager {
         take?: number;
     }): Promise<({
         room: {
-            name: string;
             id: string;
+            name: string;
+            description: string;
             createdAt: Date;
             updatedAt: Date;
-            description: string;
         };
         shortTermMemories: {
             id: number;
-            createdAt: Date;
-            updatedAt: Date;
             text: string;
             cursorId: number;
-            roomId: string;
             ownerId: string | null;
+            roomId: string;
+            createdAt: Date;
+            updatedAt: Date;
         }[];
         _count: {
             msg: number;
@@ -406,60 +406,60 @@ declare class MemoryManager {
             room: number;
             shortTermMemories: number;
         };
-        msg: {
-            id: number;
-            createdAt: Date;
-            updatedAt: Date;
-            text: string;
-            senderId: string;
-            roomId: string;
-        };
         owner: {
-            name: string;
             id: string;
+            name: string;
             profile: string;
             createdAt: Date;
             updatedAt: Date;
         } | null;
+        msg: {
+            id: number;
+            text: string;
+            senderId: string;
+            roomId: string;
+            createdAt: Date;
+            updatedAt: Date;
+        };
     } & {
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
-        roomId: string;
         msgId: number;
         ownerId: string | null;
+        roomId: string;
+        createdAt: Date;
+        updatedAt: Date;
     })[]>;
     getShortTermMemories(options?: {
         take?: number;
     }): Promise<{
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
         text: string;
         cursorId: number;
-        roomId: string;
         ownerId: string | null;
+        roomId: string;
+        createdAt: Date;
+        updatedAt: Date;
     }[]>;
     getLongTermMemories(options?: {
         take?: number;
     }): Promise<{
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
         text: string;
         cursorId: number;
-        roomId: string;
         ownerId: string | null;
+        roomId: string;
+        createdAt: Date;
+        updatedAt: Date;
     }[]>;
     getRelatedMemories(limit: number): Promise<Memory[]>;
     private _currentMemory?;
     addMessage2Memory(ctx: MessageContext, message: Message): Promise<{
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
-        roomId: string;
         msgId: number;
         ownerId: string | null;
+        roomId: string;
+        createdAt: Date;
+        updatedAt: Date;
     } | undefined>;
     private _onMemory;
     /**
@@ -501,19 +501,19 @@ declare class ConversationManager {
         order?: "asc" | "desc";
     }): Promise<({
         room: {
-            name: string;
             id: string;
+            name: string;
+            description: string;
             createdAt: Date;
             updatedAt: Date;
-            description: string;
         };
         memories: {
             id: number;
-            createdAt: Date;
-            updatedAt: Date;
-            roomId: string;
             msgId: number;
             ownerId: string | null;
+            roomId: string;
+            createdAt: Date;
+            updatedAt: Date;
         }[];
         _count: {
             sender: number;
@@ -521,27 +521,27 @@ declare class ConversationManager {
             memories: number;
         };
         sender: {
-            name: string;
             id: string;
+            name: string;
             profile: string;
             createdAt: Date;
             updatedAt: Date;
         };
     } & {
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
         text: string;
         senderId: string;
         roomId: string;
+        createdAt: Date;
+        updatedAt: Date;
     })[]>;
     onMessage(ctx: MessageContext, msg: MessageWithSender): Promise<{
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
         text: string;
         senderId: string;
         roomId: string;
+        createdAt: Date;
+        updatedAt: Date;
     } | undefined>;
 }
 
@@ -570,7 +570,7 @@ declare class MiGPT {
     static logger: {
         tag: string;
         disable: boolean;
-        create(config?: LoggerConfig): /*elided*/ any;
+        create(config?: LoggerConfig | undefined): any;
         log(...args: any[]): void;
         debug(...args: any[]): void;
         success(...args: any[]): void;
